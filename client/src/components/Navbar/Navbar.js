@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import styled from "styled-components";
+import React from "react";
 
-import "./Navbar.css";
+import NavbarTitle from "./NavbarTitle";
+import NavSearchbar from "./NavSearchbar";
+import NavSignInOrOut from "./NavSignInOrOut";
+import NavCart from "./NavCart";
 
-import Brand from "./Brand/Brand";
-import Searchbar from "./Searchbar/Searchbar";
-import Controls from "./Controls/Controls";
+const NavbarWrapper = styled.div`
+  width: 100%;
+  height: 5rem;
+  background-color: black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
 
-const Navbar = (props) => {
+const Navbar = () => {
   return (
-    <div className="Navbar">
-      <Brand {...props} />
-      <Searchbar {...props} />
-      <Controls />
-    </div>
+    <NavbarWrapper>
+      <NavbarTitle />
+      <NavSearchbar />
+      <NavSignInOrOut />
+      <NavCart />
+    </NavbarWrapper>
   );
 };
 

@@ -1,39 +1,29 @@
 import React, { useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+
+import Navbar from "./components/Navbar/Navbar";
+
+import HomePage from "./pages/HomePage/HomePage";
+import SignInPage from "./pages/SignInPage/SignInPage";
+import CreateAccountPage from "./pages/CreateAccountPage/CreateAccountPage";
+import ForgetPasswordPage from "./pages/ForgetPasswordPage/ForgetPasswordPage";
 
 import "./App.css";
-
-import Page from "./components/Page/Page";
-import Navbar from "./components/Navbar/Navbar";
-import Content from "./components/Content/Content";
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/Footer";
+import CartPage from "./pages/CartPage/CartPage";
 
 function App() {
-  const [state, setState] = useState({
-    navbar: {
-      brandTitle: "Management",
-      searchStr: "",
-    },
-  });
-
-  const onTextChange = (e) => {
-    setState((prevState) => {
-      return {
-        ...prevState,
-        navbar: {
-          ...prevState.navbar,
-          searchStr: e.target.value,
-        },
-      };
-    });
-  };
-
   return (
     <div className="App">
-      <Page>
-        <Navbar state={state} setState={setState} onTextChange={onTextChange} />
-        <Content />
-        <Footer />
-      </Page>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/sign-in" element={<SignInPage />} />
+        <Route path="/sign-up" element={<CreateAccountPage />} />
+        <Route path="/forget-password" element={<ForgetPasswordPage />} />
+        <Route path="/my-cart" element={<CartPage />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }

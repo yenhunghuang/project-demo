@@ -1,62 +1,43 @@
 export const APP_ACTIONS = {
-  showSignInForm: "SHOW_SIGN_IN_FORM",
-  showSignUpForm: "SHOW_SIGN_UP_FORM",
-  onSignInEmailChange: "ON_SIGN_IN_EMAIL_CHANGE",
-  onSignInPasswordChange: "ON_SIGN_IN_PASSWORD_CHANGE",
-  onSignUpEmailChange: "ON_SIGN_UP_EMAIL_CHANGE",
-  onSignUPPasswordChange: "ON_SIGN_UP_PASSWORD_CHANGE",
-  openForgetPasswordForm: "OPEN_FORGET_PASSWORD_FORM",
-  sentForgetPassword: "SENT_FORGET_PASSWORD",
+  resetForm: "RESET_FORM",
+  onEmailChange: "FORM_ON_EMAIL_CHANGE",
+  onPasswordChange: "FORM_ON_PASSWORD_CHANGE",
+  handleSignInUser: "HANDLE_SIGN_IN_USER",
+  handleAddProductToCart: "HANDLE_ADD_PRODUCT_TO_CART",
 };
 
-export const showSignInForm = () => {
+export const resetForm = () => {
   return {
-    type: APP_ACTIONS.showSignInForm,
+    type: APP_ACTIONS.resetForm,
   };
 };
 
-export const showSignUpForm = () => {
+export const onEmailChange = (e, isForSignIn) => {
   return {
-    type: APP_ACTIONS.showSignUpForm,
+    type: APP_ACTIONS.onEmailChange,
+    payload: e.target.value,
+    isForSignIn,
   };
 };
 
-export const onSignInEmailChange = (event) => {
+export const onPasswordChange = (e, isForSignIn) => {
   return {
-    type: APP_ACTIONS.onSignInEmailChange,
-    payload: event.target.value,
+    type: APP_ACTIONS.onPasswordChange,
+    payload: e.target.value,
+    isForSignIn,
   };
 };
 
-export const onSignInPasswordChange = (event) => {
+export const handleSignInUser = () => {
   return {
-    type: APP_ACTIONS.onSignInPasswordChange,
-    payload: event.target.value,
+    type: APP_ACTIONS.handleSignInUser,
   };
 };
 
-export const onSignUpEmailChange = (event) => {
+export const handleAddProductToCart = (productName, isFirstItem) => {
   return {
-    type: APP_ACTIONS.onSignUpEmailChange,
-    payload: event.target.value,
-  };
-};
-
-export const onSignUpPasswordChange = (event) => {
-  return {
-    type: APP_ACTIONS.onSignUPPasswordChange,
-    payload: event.target.value,
-  };
-};
-
-export const openForgetPasswordForm = () => {
-  return {
-    type: APP_ACTIONS.openForgetPasswordForm,
-  };
-};
-
-export const sentForgetPassword = () => {
-  return {
-    type: APP_ACTIONS.sentForgetPassword,
+    type: APP_ACTIONS.handleAddProductToCart,
+    payload: productName,
+    isFirstItem,
   };
 };
