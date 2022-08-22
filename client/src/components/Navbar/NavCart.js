@@ -27,9 +27,7 @@ const NavCart = (props) => {
 
   return (
     <>
-      <NavCartWrapper onClick={() => navigate("/my-cart")}>
-        NavCart
-      </NavCartWrapper>
+      <NavCartWrapper onClick={() => navigate("/my-cart")}>Cart</NavCartWrapper>
       <TotalCartItemsCount>{totalItemsCount}</TotalCartItemsCount>
     </>
   );

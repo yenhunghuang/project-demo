@@ -75,6 +75,32 @@ const reducer = (state = defaultState, action) => {
         };
       }
 
+    case APP_ACTIONS.handleDeleteProduct:
+      let originNumber = state.userInfo.cart[action.payload];
+      if (originNumber !== 0) {
+        return {
+          ...state,
+          userInfo: {
+            ...state.signInForm,
+            cart: {
+              ...state.userInfo.cart,
+              [action.payload]: originNumber - 1,
+            },
+          },
+        };
+      } else {
+        return {
+          ...state,
+          userInfo: {
+            ...state.signInForm,
+            cart: {
+              ...state.userInfo.cart,
+              [action.payload]: 0,
+            },
+          },
+        };
+      }
+
     default:
       return state;
   }

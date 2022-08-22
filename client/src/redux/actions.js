@@ -4,6 +4,7 @@ export const APP_ACTIONS = {
   onPasswordChange: "FORM_ON_PASSWORD_CHANGE",
   handleSignInUser: "HANDLE_SIGN_IN_USER",
   handleAddProductToCart: "HANDLE_ADD_PRODUCT_TO_CART",
+  handleDeleteProduct: "HANDLE_DELETE_PRODUCT",
 };
 
 export const resetForm = () => {
@@ -39,5 +40,12 @@ export const handleAddProductToCart = (productName, isFirstItem) => {
     type: APP_ACTIONS.handleAddProductToCart,
     payload: productName,
     isFirstItem,
+  };
+};
+export const handleDeleteProduct = (productName, isExistItem) => {
+  return {
+    type: APP_ACTIONS.handleDeleteProduct,
+    payload: productName,
+    isExistItem,
   };
 };

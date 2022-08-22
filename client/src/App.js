@@ -11,6 +11,7 @@ import ForgetPasswordPage from "./pages/ForgetPasswordPage/ForgetPasswordPage";
 import "./App.css";
 import Footer from "./components/Footer";
 import CartPage from "./pages/CartPage/CartPage";
+import { ProductDetailPage } from "./pages/CartPage/ProductDetailPage/ProductDetailPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/sign-up" element={<CreateAccountPage />} />
         <Route path="/forget-password" element={<ForgetPasswordPage />} />
         <Route path="/my-cart" element={<CartPage />} />
+        <Route path="/my-cart/product-detail" element={<ProductDetailPage />} />
       </Routes>
       <Footer />
     </div>

@@ -1,8 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import { handleAddProductToCart } from "../../../../redux/actions";
+import ProductDetail from "./ProductDetail/ProductDetail";
+
+import {
+  handleAddProductToCart,
+  handleDeleteProduct,
+} from "../../../../redux/actions";
 
 const ProductCardWrapper = styled.div`
   height: 150px;
@@ -29,6 +35,8 @@ const HowManyInCart = styled.div``;
 const ProductCard = (props) => {
   const { name, price, appReduxStoreState } = props;
 
+  const navigate = useNavigate();
+
   const handleAddProduct = (productName) => {
     let isContainedInCart = false;
     let cartProducts = Object.keys(appReduxStoreState.userInfo.cart);
@@ -45,20 +53,40 @@ const ProductCard = (props) => {
     }
   };
 
-  const handleDeleteProduct = () => {};
+  const handleDeleteProduct = (productName) => {
+    let isContainedInCart = false;
+    let cartProducts = Object.keys(appReduxStoreState.userInfo.cart);
+    for (let cartProductName of cartProducts) {
+      if (cartProductName === productName) {
+        isContainedInCart = false;
+      }
+    }
+
+    if (isContainedInCart) {
+      props.handleDeleteProduct(productName, true);
+    } else {
+      props.handleDeleteProduct(productName, false);
+    }
+  };
+
+  const handleProductDetail = (productName) => {
+    navigate("/my-cart/product-detail");
+  };
 
   return (
     <ProductCardWrapper>
-      <ProductPhotoDiv>Product Photo</ProductPhotoDiv>
+      <ProductPhotoDiv onClick={() => handleProductDetail(name)}>
+        Product Photo
+      </ProductPhotoDiv>
       <ProductNameDiv>Name: {name}</ProductNameDiv>
-      <ProductPriceDiv>Price: {price}</ProductPriceDiv>
+      <ProductPriceDiv>${price}</ProductPriceDiv>
       <CardControlsDiv>
         <button onClick={() => handleAddProduct(name)}>ADD</button>
         <HowManyInCart>
           {appReduxStoreState.userInfo.cart[name] !== undefined &&
             appReduxStoreState.userInfo.cart[name]}
         </HowManyInCart>
-        <button onClick={() => handleDeleteProduct()}>Delete</button>
+        <button onClick={() => handleDeleteProduct(name)}>Delete</button>
       </CardControlsDiv>
       <CardControlsDiv>
         <button>EDIT</button>
@@ -73,6 +101,6 @@ let mapStateToProps = (state) => {
   };
 };
 
-let mapDispatchToProps = { handleAddProductToCart };
+let mapDispatchToProps = { handleAddProductToCart, handleDeleteProduct };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);

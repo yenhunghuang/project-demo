@@ -6,7 +6,7 @@ const NavbarTitleWrapper = styled.div`
 `;
 
 const NavbarTitle = (props) => {
-  return <NavbarTitleWrapper>NavbarTitle</NavbarTitleWrapper>;
+  return <NavbarTitleWrapper>Management</NavbarTitleWrapper>;
 };
 
 export default NavbarTitle;
