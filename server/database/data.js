@@ -1,4 +1,4 @@
-const productsStore = [
+const DataProducts = [
   {
     name: "PlayStation 5",
     image_link:
@@ -55,4 +55,4 @@ const productsStore = [
   },
 ];
 
-export default productsStore;
+module.exports = DataProducts;

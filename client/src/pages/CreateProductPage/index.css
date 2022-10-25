@@ -1,0 +1,6 @@
+.link {
+  display: flex;
+  padding-left: 200px;
+  width: 0;
+  overflow: hidden;
+}

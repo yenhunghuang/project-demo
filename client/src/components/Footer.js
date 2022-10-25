@@ -4,6 +4,7 @@ import styled from "styled-components";
 const FooterWrapper = styled.div`
   height: 3rem;
   background-color: black;
+  display: flex;
 `;
 
 const Footer = () => {

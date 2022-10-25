@@ -1,18 +1,29 @@
 import React from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import CartContext from "./CartContext/CartContext.js";
 
 const CartPageWrapper = styled.div`
-  width: 100%;
+  width: 40%;
   background-color: grey;
-  height: 650px;
-
+  height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const CartPage = (props) => {
-  return <CartPageWrapper>CartPage</CartPageWrapper>;
+  let entries = Object.entries(props.appReduxStoreState.userInfo.cart);
+  return <CartPageWrapper>{entries}</CartPageWrapper>;
 };
 
-export default CartPage;
+let mapStateToProps = (state) => {
+  return {
+    appReduxStoreState: state,
+  };
+};
+
+let mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartPage);

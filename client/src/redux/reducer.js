@@ -1,15 +1,19 @@
+// import { combineReducers } from "redux";
 import { APP_ACTIONS } from "./actions";
 
 const defaultState = {
   userInfo: {
     isSignIn: false,
     cart: {},
+    // isAdmin: false
   },
   signInForm: {
     isForSignIn: "",
     email: "",
     password: "",
   },
+  products: [],
+  product: [],
 };
 
 const reducer = (state = defaultState, action) => {
@@ -75,16 +79,16 @@ const reducer = (state = defaultState, action) => {
         };
       }
 
-    case APP_ACTIONS.handleDeleteProduct:
-      let originNumber = state.userInfo.cart[action.payload];
-      if (originNumber !== 0) {
+    case APP_ACTIONS.handleMinusProduct:
+      let Number = state.userInfo.cart[action.payload];
+      if (Number > 0) {
         return {
           ...state,
           userInfo: {
-            ...state.signInForm,
+            ...state.userInfo,
             cart: {
               ...state.userInfo.cart,
-              [action.payload]: originNumber - 1,
+              [action.payload]: Number - 1,
             },
           },
         };
@@ -92,7 +96,7 @@ const reducer = (state = defaultState, action) => {
         return {
           ...state,
           userInfo: {
-            ...state.signInForm,
+            ...state.userInfo,
             cart: {
               ...state.userInfo.cart,
               [action.payload]: 0,
@@ -100,6 +104,49 @@ const reducer = (state = defaultState, action) => {
           },
         };
       }
+
+    case APP_ACTIONS.getAllProducts:
+      console.log("action.payload", action.payload);
+      return {
+        ...state,
+        products: [...action.payload],
+        product: [],
+      };
+
+    case APP_ACTIONS.getProductById:
+      console.log("action.payload", action.payload);
+
+      return {
+        ...state,
+        // product: [...action.payload],
+
+        product: [action.payload],
+      };
+
+    case APP_ACTIONS.deleteProduct:
+      console.log("action.payload", action.payload);
+
+      return {
+        ...state,
+        product: [...action.payload],
+      };
+
+    case APP_ACTIONS.handleCreateProduct:
+      console.log("action.payload", action.payload);
+
+      return {
+        ...state,
+        products: [...action.payload],
+        product: [],
+      };
+    case APP_ACTIONS.handleEditProduct:
+      console.log("action.payload", action.payload);
+
+      return {
+        ...state,
+        // products: [...action.payload],
+        product: [action.payload],
+      };
 
     default:
       return state;

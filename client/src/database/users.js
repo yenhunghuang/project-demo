@@ -1,4 +1,5 @@
 const userSchema = {
+  isAdmin: false,
   email: "",
   password: "",
   shopping_cart: [],

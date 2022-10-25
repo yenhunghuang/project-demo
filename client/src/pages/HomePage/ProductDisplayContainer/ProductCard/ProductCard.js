@@ -1,45 +1,64 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import ProductDetail from "./ProductDetail/ProductDetail";
+import { getAllProducts } from "../../../../redux/actions";
+// import ProductDetailPage from "../../../CartPage/ProductDetailPage/ProductDetailPage";
+
+// import ProductScreen from "./ProductDetail/ProductScreen";
+
+import "./index.css";
 
 import {
   handleAddProductToCart,
-  handleDeleteProduct,
+  handleMinusProduct,
+  deleteProduct,
 } from "../../../../redux/actions";
 
 const ProductCardWrapper = styled.div`
-  height: 150px;
-  width: 120px;
+  height: 180px;
+  width: 100px;
   margin: 1rem;
   padding: 2rem;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 15px;
 `;
 
-const ProductPhotoDiv = styled.div``;
+const ProductPhotoDiv = styled.div`
+  width: 80px;
+  height: 80px;
+`;
 
-const ProductNameDiv = styled.div``;
+const ProductNameDiv = styled.div`
+  display: flex;
 
-const ProductPriceDiv = styled.div``;
+  margin: 0.2rem 0;
+`;
+
+const ProductPriceDiv = styled.div`
+  display: flex;
+
+  margin: 0.2rem 0;
+`;
 
 const CardControlsDiv = styled.div`
   display: flex;
-  border: 2px solid black;
-  margin: 1rem 0;
+  border: 1px solid black;
+  margin: 0.2rem 0;
 `;
 
 const HowManyInCart = styled.div``;
 
 const ProductCard = (props) => {
-  const { name, price, appReduxStoreState } = props;
+  const { id, name, price, appReduxStoreState, image_link } = props;
 
   const navigate = useNavigate();
 
   const handleAddProduct = (productName) => {
     let isContainedInCart = false;
     let cartProducts = Object.keys(appReduxStoreState.userInfo.cart);
+    console.log("cart", cartProducts);
+
     for (let cartProductName of cartProducts) {
       if (cartProductName === productName) {
         isContainedInCart = true;
@@ -53,7 +72,7 @@ const ProductCard = (props) => {
     }
   };
 
-  const handleDeleteProduct = (productName) => {
+  const handleMinusProduct = (productName) => {
     let isContainedInCart = false;
     let cartProducts = Object.keys(appReduxStoreState.userInfo.cart);
     for (let cartProductName of cartProducts) {
@@ -63,22 +82,40 @@ const ProductCard = (props) => {
     }
 
     if (isContainedInCart) {
-      props.handleDeleteProduct(productName, true);
+      props.handleMinusProduct(productName, true);
     } else {
-      props.handleDeleteProduct(productName, false);
+      props.handleMinusProduct(productName, false);
     }
   };
 
-  const handleProductDetail = (productName) => {
-    navigate("/my-cart/product-detail");
+  const handleProductDetail = (id) => {
+    navigate(`/products/${id}`);
   };
+
+  const handleDeleteProduct = (id) => {
+    deleteProduct(id);
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 100);
+  };
+
+  const handleEditProduct = (id) => {
+    console.log(id);
+    navigate(`/editProducts/${id}`);
+  };
+
+  // console.log(props);
 
   return (
     <ProductCardWrapper>
-      <ProductPhotoDiv onClick={() => handleProductDetail(name)}>
-        Product Photo
+      <ProductPhotoDiv
+        onClick={() => {
+          handleProductDetail(props.id);
+        }}
+      >
+        <img className="PhotoImg" src={image_link} />
       </ProductPhotoDiv>
-      <ProductNameDiv>Name: {name}</ProductNameDiv>
+      <ProductNameDiv> {name}</ProductNameDiv>
       <ProductPriceDiv>${price}</ProductPriceDiv>
       <CardControlsDiv>
         <button onClick={() => handleAddProduct(name)}>ADD</button>
@@ -86,10 +123,25 @@ const ProductCard = (props) => {
           {appReduxStoreState.userInfo.cart[name] !== undefined &&
             appReduxStoreState.userInfo.cart[name]}
         </HowManyInCart>
-        <button onClick={() => handleDeleteProduct(name)}>Delete</button>
+        <button onClick={() => handleMinusProduct(name)}>Minus</button>
       </CardControlsDiv>
       <CardControlsDiv>
-        <button>EDIT</button>
+        <button
+          onClick={() => {
+            handleEditProduct(props.id);
+          }}
+        >
+          EDIT
+        </button>
+      </CardControlsDiv>
+      <CardControlsDiv>
+        <button
+          onClick={() => {
+            handleDeleteProduct(props.id);
+          }}
+        >
+          DELETE
+        </button>
       </CardControlsDiv>
     </ProductCardWrapper>
   );
@@ -101,6 +153,10 @@ let mapStateToProps = (state) => {
   };
 };
 
-let mapDispatchToProps = { handleAddProductToCart, handleDeleteProduct };
+let mapDispatchToProps = {
+  deleteProduct,
+  handleAddProductToCart,
+  handleMinusProduct,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
+import checkEmail from "../../components/check/checkemail";
 
 import {
   resetForm,
@@ -46,6 +47,7 @@ const Form = (props) => {
           type="email"
           value={appReduxStoreState.signInForm.email}
           onChange={(e) => props.onEmailChange(e, isForSignIn)}
+          onBlur={() => props.checkEmail()}
         />
       </StyledFormInputPair>
       <StyledFormInputPair>
@@ -58,10 +60,8 @@ const Form = (props) => {
       </StyledFormInputPair>
       <StyledButton
         onClick={() => {
-          if (isForSignIn) {
-            props.handleSignInUser();
-            navigate("/");
-          }
+          props.handleSignInUser();
+          navigate("/");
         }}
       >
         {isForSignIn ? "Sign In" : "Create an account"}
@@ -73,6 +73,7 @@ const Form = (props) => {
               props.resetForm();
               navigate("/forget-password");
             }}
+            onBlur={() => props.checkEmail()}
           >
             Forget Password
           </StyledInputTitle>
@@ -81,6 +82,7 @@ const Form = (props) => {
               props.resetForm();
               navigate("/sign-up");
             }}
+            onBlur={() => props.checkEmail()}
           >
             Create an account
           </StyledInputTitle>

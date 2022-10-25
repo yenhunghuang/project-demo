@@ -11,7 +11,9 @@ import ForgetPasswordPage from "./pages/ForgetPasswordPage/ForgetPasswordPage";
 import "./App.css";
 import Footer from "./components/Footer";
 import CartPage from "./pages/CartPage/CartPage";
-import { ProductDetailPage } from "./pages/CartPage/ProductDetailPage/ProductDetailPage";
+import ProductDetailPage from "./pages/CartPage/ProductDetailPage/ProductDetailPage";
+import CreateProductPage from "./pages/CreateProductPage/CreateProductPage";
+import EditProductPage from "./pages/EditProductPage/EditProductPage";
 
 function App() {
   return (
@@ -22,8 +24,10 @@ function App() {
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<CreateAccountPage />} />
         <Route path="/forget-password" element={<ForgetPasswordPage />} />
-        <Route path="/my-cart" element={<CartPage />} />
-        <Route path="/my-cart/product-detail" element={<ProductDetailPage />} />
+        {/* <Route path="/my-cart" element={<CartPage />} /> */}
+        <Route path="/products/:productId" element={<ProductDetailPage />} />
+        <Route path="/createProduct" element={<CreateProductPage />} />
+        <Route path="/editProducts/:productID" element={<EditProductPage />} />
       </Routes>
       <Footer />
     </div>

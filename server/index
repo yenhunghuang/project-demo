@@ -1,0 +1,131 @@
+// const connectToMongoose = require("./database/connect");
+// const Products = require("./database/model");
+
+// const DataProducts = require("./database/data");
+
+// const ProductRoutes = require("./routes/productRoutes");
+
+// const express = require("express");
+// var cors = require("cors");
+
+// // const path = require("path");
+// // const exphbs = require("express-handlebars");
+// // const logger = require("./middleware/logger");
+// // const members = require("./Members");
+
+// connectToMongoose();
+
+// const app = express();
+
+// app.use(cors());
+
+// // Init middleware
+// // app.use(logger);
+
+// // Handlebars Middleware
+// // app.engine("handlebars", exphbs());
+// // app.set("view engine", "handlebars");
+
+// // Body Parser Middleware
+// app.use(express.json());
+// // app.use(express.urlencoded({ extended: false }));
+
+// // app.use("api/products", ProductRoutes);
+
+// // // Homepage Route
+// // app.get("/", (req, res) =>
+// //   res.render("index", {
+// //     title: "Member App",
+// //     members,
+// //   })
+// // );
+
+// //get all products
+// // app.get("/allProducts", async (_, res) => {
+// //   console.log("get all products");
+// //   const RawProductsFromDatabese = await Products.find({}).exec();
+// //   const ProductsFromDatabese = RawProductsFromDatabese.map(
+// //     ({ _id, name, description, price, stock_quantity, image_link }) => {
+// //       return {
+// //         id: _id,
+// //         name,
+// //         description,
+// //         price,
+// //         stock_quantity,
+// //         image_link,
+// //       };
+// //     }
+// //   );
+
+// //   res.status(200).json({ statusCode: 200, data: ProductsFromDatabese });
+// // });
+
+// app.get("/api/v1/products/:productId", (req, res) => {
+//   let id = req.params.productId.toString();
+//   console.log("req.params.productId", req.params.productId);
+//   let requestedProduct = null;
+//   requestedProduct = defaultProducts.filter(
+//     (product) => product.id.toString() === id
+//   );
+
+//   res.status(200).json({
+//     statusCode: 200,
+//     data: requestedProduct,
+//   });
+// });
+
+// //add product
+// app.post("/api/v1/products", async (req, res) => {
+//   const Product = new Products({
+//     _id: req.body._id,
+//     name: req.body.name,
+//     description: req.body.description,
+//     price: req.body.price,
+//     stock_quantity: req.body.stock_quantity,
+//     image_link: req.body.image_link,
+//   });
+
+//   const newProduct = await Product.save();
+
+//   if (newProduct === Product) {
+//     res.status(200).json({
+//       statusCode: 200,
+//       newProduct: {
+//         id: newProduct._id,
+//         name: newProduct.name,
+//         description: newProduct.description,
+//         price: newProduct.price,
+//         stock_quantity: newProduct.stock_quantity,
+//         image_link: newProduct.image_link,
+//       },
+//     });
+//     return;
+//   }
+
+//   res.status(404).json({
+//     statusCode: 404,
+//     message: "failed",
+//   });
+// });
+
+// app.patch("/api/v1/products/:productID", (req, res) => {
+//   console.log("req.body", req.body);
+
+//   // let toBeEditedProduct = defaultProducts.findId(req.params.productID)
+//   // toBeEditedProduct = { ...req.body };
+
+//   res.status(200).json({
+//     statusCode: 200,
+//     data: toBeEditedProduct,
+//   });
+// });
+
+// // Set static folder
+// // app.use(express.static(path.join(__dirname, "public")));
+
+// // Members API Routes
+// // app.use("/api/members", require("./routes/api/members"));
+
+// const PORT = process.env.PORT || 8000;
+
+// app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
